@@ -36,9 +36,10 @@ Clone this repository: https://github.com/Sydcreel/work-day-scheduler.git
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+
 * The application opens to this page.
 ![index](https://github.com/Sydcreel/work-day-scheduler/blob/master/Screenshots/index.PNG?raw=true)
-<br />
+
 * Type events into time blocks and click the save button on the right.
 ![example](https://github.com/Sydcreel/work-day-scheduler/blob/master/Screenshots/example.PNG?raw=true)
 
