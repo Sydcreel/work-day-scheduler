@@ -23,7 +23,6 @@ This is a scheduling application designed to display time blocks for standard bu
 * Visual Studio Code version 8
 * HTML, CSS, Javascript, Moment.js
 
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -37,7 +36,7 @@ Clone this repository: https://github.com/Sydcreel/work-day-scheduler.git
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-
+![index](https://github.com/Sydcreel/work-day-scheduler/blob/master/Screenshots/index.PNG?raw=true)
 
 <!-- CONTRIBUTING -->
 ## Contributing
