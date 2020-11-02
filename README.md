@@ -59,4 +59,6 @@ Sydney Creel
 
 github.com/Sydcreel
 
-Project Link: https://github.com/Sydcreel/work-day-scheduler.git
+Deployed Link: https://sydcreel.github.io/work-day-scheduler/
+
+Repository: https://github.com/Sydcreel/work-day-scheduler.git
