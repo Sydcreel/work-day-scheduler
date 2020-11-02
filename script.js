@@ -1,18 +1,18 @@
-$(document).ready(function () {
-    // display current day and time
+$(document).ready(function () {// essentially tells engine to load 1)html & 2)css first.
+    //display current day & time.
     $("#currentDay").text(moment().format("MMMM Do YYYY, h:mm:ss a"));
 
-    // create saveBtn click event
+    //Assign saveBtn click listener for user input and time stamp??
     $(".saveBtn").on("click", function () {
         //get nearby values.
         console.log(this);
         var text = $(this).siblings(".description").val();
         var time = $(this).parent().attr("id");
 
-        // store data in local storage
+        //set items in local storage.
         localStorage.setItem(time, text);
     })
-    // load local storage data
+    //load any saved data from LocalStorage - do this for each hour created.
     $("#hour9 .description").val(localStorage.getItem("hour9"));
     $("#hour10 .description").val(localStorage.getItem("hour10"));
     $("#hour11 .description").val(localStorage.getItem("hour11"));
@@ -25,15 +25,15 @@ $(document).ready(function () {
 
 
     function hourTracker() {
-        // get current number of hours
+        //get current number of hours.
         var currentHour = moment().hour();
 
-        // create time blocks loop
+        // loop over time blocks
         $(".time-block").each(function () {
             var blockHour = parseInt($(this).attr("id").split("hour")[1]);
             console.log( blockHour, currentHour)
 
-            // determine if event is past, present, or future based on time
+            //check if we've moved past this time
             if (blockHour < currentHour) {
                 $(this).addClass("past");
                 $(this).removeClass("future");
@@ -52,4 +52,4 @@ $(document).ready(function () {
         })
     }
     hourTracker();
-})
+});
