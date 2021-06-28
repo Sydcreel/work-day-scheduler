@@ -23,7 +23,6 @@ This is a scheduling application designed to display time blocks for standard bu
 * Visual Studio Code version 8
 * HTML, CSS, Javascript, Moment.js
 
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -38,6 +37,11 @@ Clone this repository: https://github.com/Sydcreel/work-day-scheduler.git
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+* The application opens to this page.
+![index](https://github.com/Sydcreel/work-day-scheduler/blob/master/Screenshots/index.PNG?raw=true)
+
+* Type events into time blocks and click the save button on the right.
+![example](https://github.com/Sydcreel/work-day-scheduler/blob/master/Screenshots/example.PNG?raw=true)
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -55,4 +59,6 @@ Sydney Creel
 
 github.com/Sydcreel
 
-Project Link: https://github.com/Sydcreel/work-day-scheduler.git
+Deployed Link: https://sydcreel.github.io/work-day-scheduler/
+
+Repository: https://github.com/Sydcreel/work-day-scheduler.git
