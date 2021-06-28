@@ -1,115 +1,71 @@
-/* Body styles*/
 body {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 1rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 16px;
   line-height: 1;
-  padding-bottom: 4rem;
-}
-/* Hero styles*/
-.jumbotron {
-  text-align: center;
-  background-color: transparent;
-  color: black;
-  border-radius: 0;
-  border-bottom: 10px solid black;
 }
 
-header h1 {
-  font-size: 5vw;
+textarea{
+  background: #d7d1e3;
+  border: none;
+  resize: none;
+  color: #000000;
+  border-left: 1px solid black;
+  padding: 10px;
 }
+
+.jumbotron {
+  text-align: center;
+  background-color: #ab96d6;
+  color: black;
+  border-radius: 0;
+  border-bottom: 10px solid #d7d1e3;
+}
+
 .description{
   white-space: pre-wrap;
 }
 
-
-/*time-block styles*/
+.time-block{
+  text-align: center;
+  border-radius: 15px;
+}
 
 .row {
+  white-space: pre-wrap;
   height: 80px;
+  border-top: 1px solid white;;
 }
 
 .hour {
   background-color: #ffffff;
   color: #000000;
-  border: 2px dashed;
-  border-collapse: collapse;
-  text-align: right; 
-  height: 82px;
-  box-shadow: 5px 0 5px -4px #888;
-  z-index: 1;
+  border-top: 1px dashed #000000;
 }
 
-.activity {
-  height:78px;
-  align-self: center;
-  padding-left: 3px;
-  padding-right: 3px;
-}
-
-.activity-text {
-  border-color: rgba(0, 0, 0, 0);
-  color: #000000;
-  background: transparent;
-  resize: none;
-  padding: 10px;
-}
-
-
-    /*Time status audit styles*/
 .past {
   background-color: #d3d3d3;
+  color: white;
 }
 
 .present {
   background-color: #ff6961;
+  color: white;
 }
 
 .future {
   background-color: #77dd77;
+  color: white;
 }
 
 .saveBtn {
+  border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-color: #06AED5;
+  background-color: #ab96d6;
   color: white;
-  height:78px;
-  align-self: center;
-  box-shadow: -5px 0px 5px -2px #888;
-  z-index: 1;
 }
 
-.saveBtn:hover {
-  color: black;
+.saveBtn i:hover {
+  font-size: 20px;
   transition: all .3s ease-in-out;
-}
-
-
-/* footer styles*/
-footer {
-  height: 5vh;
-  border-top: solid 2px; 
-}
-
-/* media queries*/
-/* screen sizes smaller than 768px */
-@media screen and (max-width: 767px) {
-  header h1 {
-    font-size: 15vw;
-  }
-
-  .hour {
-    padding-right: 3rem;
-  }
-
-  .activity {
-    max-width: 70%;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  header #date {
-    font-size: 5vw;
-    
-  }
 }

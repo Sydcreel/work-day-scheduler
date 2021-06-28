@@ -1,141 +1,114 @@
-var activities = [];
+//variables
 
+var currentDay = $("#currentDay");
+var timeBlock = $(".time-block");
+var scheduleZone = $(".schedule");
 
+var taskItems = [];
 
-// load activities array from localStorage
-var loadActivities = function() {
-    activities = JSON.parse(localStorage.getItem("activities"));
-    // if there is nothing for this in localStorage, get out
-    if (!activities){
-        activities = [];
-        return;
-    } 
-    // otherwise replace empty textarea values with corresponding activities array.text
-    else {
-        $("textarea").each(function() {
-            for (var i = 0; i < activities.length; ++i) { 
-                if (activities[i].id === parseInt($(this).attr("id"))){
-                $(this).val(activities[i].text);
-                }
-            
-            }
-        });
-    }    
-};
+var currentDate = moment().format("dddd, MMMM Do");
+var currentHour = moment().format("H");
 
-var clearAll = function (){
-    var confirmClear = window.confirm("This will clear your current schedule. Are you sure you want a new schedule?")
-        if (confirmClear){
-            activities = [];
-            saveActivity();
-            return window.location.assign((href = "./index.html"));
+// if no tasks to do, set up object array
+
+function startSchedule(){
+    //go thru each timeblock.
+    timeBlock.each(function(){
+        var currentBlock = $(this);
+        var currentBlockHour = parseInt(currentBlock.attr("data-hour"));
+
+        var taskObj = {
+            hour: currentBlockHour,
+            text: ""
         }
-        else {
-            return;
-        }
+        //add obj to item array
+        taskItems.push(taskObj);
+    });
+
+    //now save array to Local storage -->stringify
+
+    localStorage.setItem("tasks", JSON.stringify(taskItems));
+
 }
 
-$("#clear").on("click", clearAll);
+//color-coded time block -- based on current time
 
-// save activities array to localStorage
-var saveActivity = function() {
-    localStorage.setItem("activities", JSON.stringify(activities));
-};
+function colorBlock(){
+    timeBlock.each(function(){
+        var currentBlock = $(this);
+        var currentBlockHour = parseInt(timeBlock.attr("data-hour"))
+        //style for blocks based on current time of day
+        if (currentBlockHour === currentHour) {
+            currentBlock.addClass("present").removeClass("future past")
+        }
+        if (currentBlockHour > currentHour) {
+            currentBlock.addClass("future").removeClass("present past")
+        }
+        else {
+            currentBlock.addClass("past").removeClass("future present")
+        }
+    });    
+}
 
-// Save activities on button click
-$(".saveBtn").on("click", function(){
-        // get textarea text and id
-        activityText = $(this).prev().children("textarea").val().trim();
-        activityId = $(this).prev().children("textarea").attr("id");
-        // convert id to integer
-        activityIndex = parseInt(activityId);
-        // store id integer and text in an object
-        activityObj = {id: activityIndex, text: activityText};
-        // if there are no objects in activities array then push
-        if (activities.length === 0) {
-            activities.push(activityObj);
-            console.log(activities);
+
+//render the schedule to page
+
+function renderSchedule(){
+    taskItems = localStorage.getItem("tasks");
+    taskItems = JSON.parse(taskItems);
+    //for loop to iterate through task array
+    for (var i = 0; i < taskItems.length; i++) {
+        //set variables that get entered in their respective time blocks.
+        var itemTime = taskItems[i].hour;
+        var itemTask = taskItems[i].text;
+
+        $("data-hour=" + itemTime + "]").children("textarea").val(itemTask);
+    }
+
+    //console.log(taskItems);
+}
+
+//save task
+
+function saveTask(){
+    //parent block
+    var thisBlock = $(this).parent();
+    //update variables
+    var hourUpdate = $(this).parent().attr("data-hour");
+    var itemAdd = ($(this).parent()).children("textarea").val();
+
+    //for loop to iterate thru task items and update to match hours, new variable
+    for (var x = 0; x < taskItems.length; x++){
+        if (taskItems[x].hour === hourUpdate){
+            //delegate text
+            taskItems.text = itemAdd
         }
-        // otherwise, loop over activities array
-        else { 
-            for (var i = 0; i < activities.length; ++i) {
-                // if an object id matches the new activity id, delete it
-                if (activities[i].id === activityObj.id) {
-                    activities.splice(activities[i].id, 1);
-                }
-            }
-            // push the new activityObj
-            activities.push(activityObj);
-            // sort the objects by id so the next time it is updated the correct item will be spliced
-            activities.sort((a, b) => a.id - b.id);
-        }
-        // save activities array to localStorage
-        saveActivity();
+    }
+    //now set item to localstorage, stringify task items
+    localStorage.setItem("tasks", JSON.stringify(taskItems))
+    //call renderSchedule
+
+    renderSchedule();
+
+
+
+}
+
+//define what happens when document loads up
+
+$(document).ready(function(){
+    //call colorBlock
+    colorBlock();
+    //verify there is nothing in local storage then call startSchedule if there is nothing in LS
+    if (!localStorage.getItem("tasks")){
+        startSchedule();
+    }
+    //print date
+    currentDay.text(currentDate);
+
+    //call render
+    renderSchedule();
+    //save input when task item's save button is clicked.
+    scheduleZone.on("click", "button", saveTask);
+
 });
-
-// blur save
-$(".activity-text").on("blur", function(){
-    // get textarea text and id
-    activityText = $(this).val().trim();
-    activityId = $(this).attr("id");
-    // convert id to integer
-    activityIndex = parseInt(activityId);
-    // store id integer and text in an object
-    activityObj = {id: activityIndex, text: activityText};
-    // if there are no objects in activities array then push
-    if (activities.length === 0) {
-        activities.push(activityObj);
-        console.log(activities);
-    }
-    // otherwise, loop over activities array
-    else { 
-        for (var i = 0; i < activities.length; ++i) {
-            // if an object id matches the new activity id, delete it
-            if (activities[i].id === activityObj.id) {
-                activities.splice(activities[i].id, 1);
-            }
-        }
-        // push the new activityObj
-        activities.push(activityObj);
-        // sort the objects by id so the next time it is updated the correct item will be spliced
-        activities.sort((a, b) => a.id - b.id);
-    }
-    // save activities array to localStorage
-    saveActivity();
-});
-
-// audit each time block and determine the status of the activity as past, present, or future
-var timeStatusAudit = function() {
-    $(".hour").each(function (){
-    // set current time to military time rounded down on the hour
-    var currentTime = Math.floor(moment().format('H'));
-    // set time for comparison by parsing the unique data-time attribute for each hour div
-    var activityTime = parseInt($(this).attr("data-time"));
-    if (activityTime === currentTime) {
-        $(this).siblings(".activity").removeClass("future").addClass("present");
-    }
-    else if (activityTime - currentTime < 0) {
-        $(this).siblings(".activity").removeClass("future");
-        $(this).siblings(".activity").removeClass("present").addClass("past");
-    }
-    else if (activityTime - currentTime > 0) {
-        $(this).siblings(".activity").removeClass("present");
-        $(this).siblings(".activity").removeClass("past").addClass("future");
-    }
-    });
-    // update activity time status every 15 minutes
-    setTimeout(timeStatusAudit, 900000);
-};
-
-
-
-// Set current date (added time for user clarity)
-var setDateTime = function() {
-$("#date").text(moment().format('dddd, MMMM Do, hh:mm a')); 
-// update current time every 15 minutes
-setTimeout(setDateTime, 900000);
-};
-
-setDateTime();
-timeStatusAudit();
-loadActivities();
